@@ -43,6 +43,41 @@ with mp_face_mesh.FaceMesh(
                     mp_drawing.DrawingSpec(color=(255, 0, 255), thickness=2)
                 )
 
+            """  # Lista de índices de puntos para los dedos
+            thumb_tip = hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_TIP]
+            index_tip = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_TIP]
+            middle_tip = hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_TIP]
+            ring_tip = hand_landmarks.landmark[mp_hands.HandLandmark.RING_FINGER_TIP]
+            pinky_tip = hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_TIP]
+
+            # Determinar qué dedo está levantado comparando con el punto base
+            def is_finger_raised(tip_point, base_point):
+                return tip_point.y < base_point.y
+
+            # Definir los puntos base para comparación
+            thumb_base = hand_landmarks.landmark[mp_hands.HandLandmark.THUMB_IP]
+            index_base = hand_landmarks.landmark[mp_hands.HandLandmark.INDEX_FINGER_PIP]
+            middle_base = hand_landmarks.landmark[mp_hands.HandLandmark.MIDDLE_FINGER_PIP]
+            ring_base = hand_landmarks.landmark[mp_hands.HandLandmark.RING_FINGER_PIP]
+            pinky_base = hand_landmarks.landmark[mp_hands.HandLandmark.PINKY_PIP]
+
+            # Verificar qué dedo está levantado
+            raised_fingers = []
+            if is_finger_raised(thumb_tip, thumb_base):
+                raised_fingers.append("Thumb")
+            if is_finger_raised(index_tip, index_base):
+                raised_fingers.append("Index")
+            if is_finger_raised(middle_tip, middle_base):
+                raised_fingers.append("Middle")
+            if is_finger_raised(ring_tip, ring_base):
+                raised_fingers.append("Ring")
+            if is_finger_raised(pinky_tip, pinky_base):
+                raised_fingers.append("Pinky")
+
+            # Mostrar en la pantalla qué dedos están levantados
+            if raised_fingers:
+                cv2.putText(frame, f"Raised Fingers: {', '.join(raised_fingers)}", (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA) """
+
         if results.multi_face_landmarks is not None:
             """ for face_landmarks in results.multi_face_landmarks:
                 mp_drawing.draw_landmarks(
